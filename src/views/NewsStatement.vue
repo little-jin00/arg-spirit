@@ -62,7 +62,7 @@ const showExitTip = ref(false)
 
 function goForum () {
   showExitTip.value = false
-  window.open('/forum', '_blank')
+  window.open(import.meta.env.BASE_URL + 'forum', '_blank')
 }
 </script>
 
