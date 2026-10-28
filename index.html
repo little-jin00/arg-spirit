@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>余晖乐园 - 让笑容照亮每一天</title>
+    <script>
+      // GitHub Pages 回退：404.html 记下的原始地址在此还原，再交给 vue-router
+      (function () {
+        try {
+          var to = sessionStorage.getItem('spa_redirect')
+          if (to) {
+            sessionStorage.removeItem('spa_redirect')
+            history.replaceState(null, '', to)
+          }
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

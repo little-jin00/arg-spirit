@@ -1,0 +1,59 @@
+/* ===== 全局基础样式与三层主题变量 ===== */
+* { box-sizing: border-box; }
+html, body, #app { height: 100%; }
+body {
+  margin: 0;
+  font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app { min-height: 100%; background: var(--bg); color: var(--text); }
+
+/* Layer 1：乐园官网表层（现代科技简洁 · 亮色） */
+.theme-park {
+  --bg: #ffffff;
+  --panel: #ffffff;
+  --text: #1a1a1a;
+  --link: #ff6b35;
+  --accent: #ff6b35;
+  --border: #ececec;
+  --muted: #8a8a8a;
+}
+
+/* Layer 1.5：暮色论坛（泛黄纸感 · 剧情反差保留） */
+.theme-forum {
+  --bg: #d8d4c4;
+  --panel: #f2eee2;
+  --text: #2b2b25;
+  --link: #0000cc;
+  --accent: #7a1f1f;
+  --border: #b9b39d;
+}
+
+/* Layer 3：科赛雷诺科技官网（企业级生物科技 · 海军蓝） */
+.theme-ceres {
+  --bg: #ffffff;
+  --panel: #f5f9ff;
+  --text: #24344d;
+  --link: #1657c9;
+  --accent: #1657c9;
+  --border: #e6eef8;
+  --muted: #7b8ba6;
+}
+
+/* Layer 3：系统深层（冷峻黑绿） */
+.theme-system {
+  --bg: #0a0a0a;
+  --panel: #101410;
+  --text: #d8e8d8;
+  --link: #00ff41;
+  --accent: #e74c3c;
+  --border: #1c2a1c;
+}
+
+a { color: var(--link); }
+
+@keyframes blink-red {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
