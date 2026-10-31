@@ -171,8 +171,8 @@ export const FILES = {
 [2024-10-15 23:46:58] session.grant 0x14F · operator=marcus.thorne · scope=guest · ttl=permanent · note=maintenance
 [2024-10-15 23:47:02] user.session 0x14F · src=ext · route=forum/dm · action=MONITOR · ref=MEMO-V2.3`,
 
-  '/subjects/e-07/vitals.log': `[E-07] 床号 B-2 · 女 · 35岁 · 入舱 2019-11-08
-状态：持续维生（第 1,803 天）
+  '/subjects/e-07/vitals.log': `[E-07] 床号 B-2 · 女 · 35岁 · 入舱 2019-07-19
+状态：持续维生（第 1,915 天）
 
 生命体征 · 近 24 小时均值
   心率    62 次/分

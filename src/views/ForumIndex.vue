@@ -94,6 +94,7 @@ const threads = [
   { slug: 'mandela-effect', tag: '讨论', title: '大家有没有记忆和现实对不上的经历', author: '庄周', replies: 56, last: '2019-05-12' },
   { slug: 'cat-corner', tag: '闲聊', title: '猫为什么总盯着墙角看', author: '有猫人士', replies: 38, last: '2019-04-26' },
   { slug: 'subway-cry', tag: '树洞', title: '连续加班一个月，今天在地铁上哭了', author: '匿名', replies: 64, last: '2019-04-18' },
+  { slug: 'missing-mom', tag: '求助', title: '寻人：妈妈去余晖乐园后失联了，求7月19日当天的游客', author: '等妈妈回家', replies: 9, last: '2019-08-02' },
   { slug: 'old-house', tag: '树洞', title: '老房子拆掉的最后一天，我回去看了一眼', author: '城南旧事', replies: 18, last: '2019-03-22' },
   { slug: 'park-salary', tag: '求证', title: '余晖乐园招聘启事里的薪资是真的假的', author: '打工魂', replies: 8, last: '2019-03-04' },
   { slug: 'mom-call', tag: '怪谈', title: '凌晨接到妈妈的电话，可妈妈三年前就去世了', author: '不想长大', replies: 52, last: '2019-02-14' },

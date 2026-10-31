@@ -55,14 +55,32 @@ const pendingDecrypt = ref(null)
 function print (t, c = '') {
   store.appendTermLines([{ t, c }])
 }
-function printBlock (text, c = '') {
-  store.appendTermLines(text.split('\n').map((t) => ({ t, c })))
+
+// 输出节流：成块内容排队逐行打印，避免一次性刷屏
+// 所有成块输出共用一条队列，多次命令之间也不会互相插队
+let sink = Promise.resolve()
+function sleep (ms) {
+  return new Promise((r) => setTimeout(r, ms))
 }
-async function typeLines (items, delay = 420) {
-  for (const [t, c] of items) {
-    await new Promise((r) => setTimeout(r, delay))
-    print(t, c)
-  }
+function enqueueLines (items, gap) {
+  sink = sink
+    .then(async () => {
+      for (const { t, c } of items) {
+        print(t, c)
+        if (gap > 0) await sleep(gap)
+      }
+    })
+    .catch(() => {})
+  return sink
+}
+function printBlock (text, c = '') {
+  const items = text.split('\n').map((t) => ({ t, c }))
+  // 行间隔按文本长度自适应：总时长控制在 1.6 秒内，避免长文件让人等太久
+  const gap = Math.min(45, 1600 / Math.max(items.length, 1))
+  return enqueueLines(items, gap)
+}
+function typeLines (items, delay = 420) {
+  return enqueueLines(items.map(([t, c]) => ({ t, c })), delay)
 }
 
 function focusInput () {
@@ -332,6 +350,12 @@ function cmdCat (arg) {
   }
   const path = resolveFile(arg)
   if (!path) {
+    // console 是只写设备（探视留言通道），不可读取
+    const norm = (arg.startsWith('/') ? arg : '/' + arg).replace(/\/$/, '')
+    if (norm === '/subjects/e-07/console') {
+      print(`cat: ${arg}: 只写设备，不可读取`, 'err')
+      return
+    }
     const dir = resolveDir(arg)
     if (dir) {
       print(
@@ -426,18 +450,50 @@ function cmdEcho (arg) {
       ], 650)
       return
     }
-    // 帮助 E-07（Marta）——选择点 C2-2
-    store.setChoice('c2_2_helped_marta', true)
-    typeLines(
-      [
+    // 安慰类内容：直接触发告别（任意阶段可达）
+    const comfort = /女儿|妈妈|母亲|妈|爱你|爱她|放心|安心|走吧|回家|休息|自由|不疼|等她|在找|记得/.test(text)
+    if (comfort) {
+      store.setChoice('c2_2_helped_marta', true)
+      typeLines(
+        [
+          ['[OK] 消息已写入 E-07 控制台。', 'ok'],
+          ['[E-07] ……', 'marta'],
+          ['[E-07] 我听到了。', 'marta'],
+          ['[E-07] 替我看着她长大……不，不用了。', 'marta'],
+          ['[E-07] 告诉她：妈妈爱她。妈妈只是……先不疼了。', 'marta'],
+          ['[SYS] 信号强度归零。E-07 生命周期结束。未生成有效样本。', 'dim'],
+          ['[E-09] 她叫 Marta。系统里只剩编号，我还记得名字。', 'e09'],
+          ['[E-09] 谢谢你。她走的时候，是醒着的。', 'e09']
+        ],
+        650
+      ).then(() => store.addEvidence('ev_marta'))
+      return
+    }
+    // 非安慰内容：她分阶段回应，自己把话题引向女儿
+    const stage = store.choices.e07_stage || 0
+    if (stage === 0) {
+      store.setChoice('e07_stage', 1)
+      typeLines([
         ['[OK] 消息已写入 E-07 控制台。', 'ok'],
-        ['[E-07] ……这是……谁在说话？', 'marta'],
-        ['[E-07] ……告诉我的女儿……妈妈爱她。', 'marta'],
-        ['[SYS] 信号强度归零。E-07 已安然消散。未生成有效样本。', 'dim'],
-        ['[E-09] 谢谢你。她现在走了。安然地。', 'e09']
-      ],
-      650
-    ).then(() => store.addEvidence('ev_marta'))
+        ['[SYS] 护理记录更新：患者脑电出现应答样波动。近 30 日首次。', 'dim'],
+        ['[E-07] ……', 'marta'],
+        ['[E-07] ……谁？', 'marta']
+      ], 650)
+    } else if (stage === 1) {
+      store.setChoice('e07_stage', 2)
+      typeLines([
+        ['[OK] 消息已写入 E-07 控制台。', 'ok'],
+        ['[E-07] 我听见了。', 'marta'],
+        ['[E-07] 这里很黑。没有窗。我不知道过了多久。', 'marta'],
+        ['[E-07] ……我有个女儿。', 'marta'],
+        ['[E-07] 她的名字……我想不起来了。为什么我动不了？', 'marta']
+      ], 650)
+    } else {
+      typeLines([
+        ['[OK] 消息已写入 E-07 控制台。', 'ok'],
+        ['[E-07] ……别走。再说点什么。', 'marta']
+      ], 650)
+    }
     return
   }
   print('写入失败：文件系统只读', 'err')

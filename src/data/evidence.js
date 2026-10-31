@@ -28,7 +28,7 @@ export const EVIDENCE = {
     title: 'E-07的最后信号',
     source: '终端 /subjects/e-07/console',
     time: '刚刚',
-    desc: '"告诉我的女儿……妈妈爱她。"在安慰信息送达后，E-07（Marta）选择安然消散，其意识未被商品化。'
+    desc: '"告诉她：妈妈爱她。"在安慰信息送达后，E-07 的信号归零。系统记录：未生成有效样本。她叫 Marta——系统里只剩编号。'
   },
   ev_maya05: {
     title: '扫描件 maya-05',
