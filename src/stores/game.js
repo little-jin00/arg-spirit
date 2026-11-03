@@ -17,6 +17,7 @@ export const useGameStore = defineStore('game', {
     fingerprint: '',
     alert: null, // 弹窗邮件（不持久化）
     devNotice: false, // 试玩版提示（不持久化）
+    introSeen: false, // 是否已从开场邮箱进入乐园官网
     _loaded: false
   }),
   actions: {
@@ -35,6 +36,7 @@ export const useGameStore = defineStore('game', {
           this.terminalUnlocked = save.terminalUnlocked ?? false
           this.terminalLines = save.terminalLines ?? []
           this.termHist = save.termHist ?? []
+          this.introSeen = save.introSeen ?? false
         }
       } catch (e) {
         // 存档解析失败则当作新档
@@ -55,7 +57,8 @@ export const useGameStore = defineStore('game', {
           timerDuration: this.timerDuration,
           terminalUnlocked: this.terminalUnlocked,
           terminalLines: this.terminalLines,
-          termHist: this.termHist
+          termHist: this.termHist,
+          introSeen: this.introSeen
         })
       )
     },
@@ -104,6 +107,7 @@ export const useGameStore = defineStore('game', {
       this.terminalLines = []
       this.termHist = []
       this.devNotice = false
+      this.introSeen = false
     }
   }
 })

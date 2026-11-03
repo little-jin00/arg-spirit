@@ -1,7 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useGameStore } from '../stores/game'
 
 const routes = [
   { path: '/', redirect: '/park' },
+  {
+    // Layer 0：开场邮箱（纯前端模拟网页邮箱）
+    path: '/inbox',
+    component: () => import('../views/InboxView.vue'),
+    meta: { theme: 'mail', title: '收件箱 - 邮局' }
+  },
   {
     // Layer 1：乐园官网表层（完全乐园风）
     path: '/park',
@@ -130,6 +137,15 @@ const router = createRouter({
     if (to.hash) return { el: to.hash, behavior: 'smooth' }
     return { top: 0 }
   }
+})
+
+// 新档必须先读开场邮件，再看乐园官网
+router.beforeEach((to) => {
+  if (to.path !== '/park') return true
+  const store = useGameStore()
+  store.init()
+  if (!store.introSeen) return { path: '/inbox' }
+  return true
 })
 
 router.afterEach((to) => {

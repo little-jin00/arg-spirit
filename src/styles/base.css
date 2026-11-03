@@ -41,6 +41,17 @@ body {
   --muted: #7b8ba6;
 }
 
+/* Layer 0：网页邮箱（现代简洁 · 中性灰蓝） */
+.theme-mail {
+  --bg: #f4f6f9;
+  --panel: #ffffff;
+  --text: #1b2530;
+  --link: #2b6cb0;
+  --accent: #2b6cb0;
+  --border: #e2e7ee;
+  --muted: #8b96a5;
+}
+
 /* Layer 3：系统深层（冷峻黑绿） */
 .theme-system {
   --bg: #0a0a0a;

@@ -281,9 +281,9 @@ const rides = [
 ]
 
 const news = [
-  { date: '10-08', title: '万圣节夜场预告：惊魂古堡限时开放', to: '/park/news/halloween-2024' },
+  { date: '09-28', title: '万圣节夜场预告：惊魂古堡限时开放', to: '/park/news/halloween-2024' },
   { date: '09-30', title: '国庆假期家庭套餐特惠', to: '/park/news/national-day-package' },
-  { date: '09-12', title: '【声明】关于网传失联记者曾到访本园的说明', to: '/news/reporter-statement' }
+  { date: '10-08', title: '【声明】关于网传失联记者曾到访本园的说明', to: '/news/reporter-statement' }
 ]
 </script>
 
