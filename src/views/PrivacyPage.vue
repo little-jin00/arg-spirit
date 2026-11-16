@@ -143,7 +143,7 @@
 
     <footer class="foot">
       <div class="wrap">
-        © 2015–2024 科赛雷诺科技 · 沪ICP备20150815号
+        © 2015–2024 科赛雷诺科技 · 沪ICP备XXXXXXXX号
       </div>
     </footer>
   </div>

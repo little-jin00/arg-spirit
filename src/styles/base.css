@@ -52,6 +52,17 @@ body {
   --muted: #8b96a5;
 }
 
+/* Layer 3.5：员工门户（内部 OA · 浅灰蓝） */
+.theme-portal {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --text: #1f2a36;
+  --link: #2d5f86;
+  --accent: #4a6b8a;
+  --border: #e3e7ec;
+  --muted: #7c8794;
+}
+
 /* Layer 3：系统深层（冷峻黑绿） */
 .theme-system {
   --bg: #0a0a0a;

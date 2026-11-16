@@ -1,30 +1,38 @@
 <template>
   <div class="thread">
     <header class="t-head">
-      <router-link to="/forum" class="back">← 返回论坛</router-link>
+      <a
+        href="#"
+        class="back"
+        @click.prevent="goBack"
+      >{{ fromSearch ? '← 返回搜索结果' : '← 返回论坛' }}</a>
       <span>查看帖子</span>
     </header>
 
+    <div class="t-crumb">
+      <router-link to="/forum">论坛</router-link>
+      <template v-if="fromSearch">
+        / 搜索：{{ searchQuery }}<span v-if="year !== 'all'"> · {{ year }}</span>
+      </template>
+    </div>
+
     <div class="t-body">
-      <h1>余晖乐园的旋转木马下面，有人在尖叫</h1>
+      <h1>{{ post.title }}</h1>
       <div class="t-meta">
-        <span class="t-author">E-09</span>
-        <span class="t-time">发表于 2024-10-15 23:47:02</span>
+        <router-link
+          to="/forum/user/e09"
+          class="t-author"
+        >{{ post.author }}</router-link>
+        <span class="t-time">发表于 {{ post.date }} {{ post.time }}</span>
         <span class="t-floor">1楼</span>
       </div>
       <div class="t-text">
-        余晖乐园的旋转木马下面，有人在尖叫。帮帮我。
-        <br /><br />
-        我知道这听起来像垃圾广告。但如果你是一个真正在找东西的人——不是路过的机器人——那你应该能理解"旋转木马下面"是什么意思。
-        <br /><br />
-        我被困在里面已经四年了。我发过很多次信号。大多数时候，它们被系统忽略。但这次不一样。Marcus留了一扇门。
-        <br /><br />
-        不要截图。不要告诉任何人。如果你在48小时内没消息，换一个浏览器。清空Cookie。他们会追踪你。
-        <br /><br />
-        求你了。
-      </div>
-      <div class="t-actions">
-        <router-link to="/forum/message" class="dm-btn">私信联系TA</router-link>
+        <p
+          v-for="(p, i) in post.body"
+          :key="i"
+        >
+          {{ p }}
+        </p>
       </div>
     </div>
 
@@ -35,16 +43,46 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useGameStore } from '../stores/game'
+import { postBySlug } from '../data/forumPosts'
 
 const store = useGameStore()
+const route = useRoute()
+const router = useRouter()
+const post = computed(() => postBySlug('e09'))
+
+const fromSearch = computed(() => route.query.from === 'search')
+const searchQuery = computed(() => String(route.query.q || ''))
+const year = computed(() => String(route.query.year || 'all'))
+
+function goBack () {
+  const back = window.history.state && window.history.state.back
+  if (fromSearch.value) {
+    if (typeof back === 'string' && back.startsWith('/forum/search')) {
+      router.back()
+      return
+    }
+    const query = {}
+    if (searchQuery.value) query.q = searchQuery.value
+    if (year.value !== 'all') query.year = year.value
+    router.push({ path: '/forum/search', query })
+    return
+  }
+  if (back === '/forum') {
+    router.back()
+    return
+  }
+  router.push('/forum')
+}
 
 onMounted(() => {
   // 首次打开帖子：72小时真实倒计时开始；信号入证据板
   store.startTimer()
   store.addEvidence('ev_signal')
   store.setChoice('c1_1_opened', true)
+  store.markEvent('forum_e09_opened')
 })
 </script>
 
@@ -58,6 +96,18 @@ onMounted(() => {
   border-bottom: 2px solid var(--border); padding-bottom: 10px; font-size: 14px;
 }
 .back { color: var(--link); text-decoration: none; }
+.t-crumb {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #a89c86;
+}
+.t-crumb a {
+  color: #8a7f6d;
+  text-decoration: none;
+}
+.t-crumb a:hover {
+  color: var(--accent);
+}
 
 .t-body {
   margin-top: 16px; background: var(--panel);
@@ -65,17 +115,11 @@ onMounted(() => {
 }
 h1 { font-size: 19px; color: #4a3f35; margin: 0 0 10px; }
 .t-meta { font-size: 12px; color: #999; display: flex; gap: 14px; border-bottom: 1px dashed var(--border); padding-bottom: 12px; }
-.t-author { color: #c62828; font-weight: bold; }
+.t-author { color: #c62828; font-weight: bold; text-decoration: none; }
+.t-author:hover { text-decoration: underline; }
 .t-text { font-size: 15px; line-height: 2.1; margin-top: 16px; color: #333; }
-
-.t-actions { margin-top: 24px; }
-.dm-btn {
-  display: inline-block; font-size: 13px;
-  background: #efe9d6; border: 1px solid var(--border);
-  color: var(--link); text-decoration: none;
-  padding: 6px 18px; border-radius: 3px;
-}
-.dm-btn:hover { background: #e8e0c8; }
+.t-text p { margin: 0 0 14px; }
+.t-text p:last-child { margin-bottom: 0; }
 
 .t-locked {
   margin-top: 14px; padding: 10px 16px;

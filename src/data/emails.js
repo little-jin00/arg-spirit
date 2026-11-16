@@ -1,8 +1,11 @@
 // A.C. 的恐吓邮件（触发时机见各页面）
 export const AC_EMAIL = {
+  id: 'ac',
   from: 'Alexander Cross <ceo@ceres-reynold.com>',
+  addr: 'ceo@ceres-reynold.com',
   subject: '关于您的调查行为',
   time: '刚刚',
+  replyable: true,
   body: `尊敬的访客：
 
 我们注意到您最近的访问行为似乎超出了普通游客的范围。

@@ -306,7 +306,7 @@
         </div>
       </div>
       <div class="wrap foot-bottom">
-        <span>© 2015–2024 科赛雷诺科技 · 沪ICP备20150815号</span>
+        <span>© 2015–2024 科赛雷诺科技 · 沪ICP备XXXXXXXX号</span>
         <span class="foot-links">
           <router-link to="/inside/legal/privacy">隐私政策</router-link>
           <!-- 追踪陷阱：点击即视为暴露 -->
@@ -322,12 +322,17 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import CeresHeader from '../components/CeresHeader.vue'
 import { useGameStore } from '../stores/game'
 import { AC_EMAIL } from '../data/emails'
 import { asset } from '../utils/asset'
 
 const store = useGameStore()
+
+onMounted(() => {
+  store.markEvent('inside_entered')
+})
 
 const news = [
   { slug: 'cross-interview', source: '财经周刊', date: '2023-06-12', title: 'Alexander Cross：快乐可以订阅' },

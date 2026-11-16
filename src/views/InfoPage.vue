@@ -95,11 +95,17 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import ShiningSun from '../components/ShiningSun.vue'
+import { useGameStore } from '../stores/game'
 
 const route = useRoute()
+const store = useGameStore()
+
+onMounted(() => {
+  if (route.params.slug === 'contact') store.addContact('service@afterglow-park.com')
+})
 
 const PAGES = {
   guide: {

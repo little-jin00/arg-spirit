@@ -2,9 +2,9 @@
 // {{FP}} 会在终端输出时替换为玩家浏览器指纹ID
 
 export const DIRS = {
-  '/': ['etc/', 'home/', 'logs/', 'subjects/', 'temp/'],
+  '/': ['etc/', 'home/', 'logs/', 'subjects/', 'system/', 'temp/'],
   '/etc/': ['memos/'],
-  '/etc/memos/': ['bait_protocol.txt', 'company_policy.txt', 'incident_2019.txt', 'staff_notice_2024.txt'],
+  '/etc/memos/': ['bait_protocol.txt', 'incident_2019.txt'],
   '/home/': ['kessler/'],
   '/home/kessler/': ['journal.txt', 'maya-05.scan', 'maya_backup.enc'],
   '/logs/': [
@@ -35,15 +35,18 @@ export const DIRS = {
   '/subjects/e-09/': [],
   '/subjects/e-10/': [],
   '/subjects/e-11/': ['trace.dat'],
-  '/subjects/e-12/': [],
-  '/temp/': ['cache_clean.log', 'dusk_archive.enc', 'tmp_4482.dat', 'visitor_stats.csv']
+  '/subjects/e-12/': ['vitals.log'],
+  '/temp/': ['cache_clean.log', 'dusk_archive.enc', 'tmp_4482.dat', 'visitor_stats.csv'],
+  '/system/': ['e-09/', 'e-13/', 'maya/'],
+  '/system/e-09/': ['persona'],
+  '/system/e-13/': ['brain'],
+  '/system/maya/': ['console', 'mourning.txt', 'reset.log']
 }
 
 // 目录存在，但当前会话无权列举
 export const LOCKED = new Set([
   '/subjects/e-09/',
-  '/subjects/e-10/',
-  '/subjects/e-12/'
+  '/subjects/e-10/'
 ])
 
 // 隐藏文件：仅 ls -a 可见
@@ -86,47 +89,6 @@ export const FILES = {
  系统注记：本次读取会话已登记 · 标识 {{FP}}
 ═══════════════════════════════════════════════════`,
 
-  '/etc/memos/company_policy.txt': `【科赛雷诺科技 · 内部规范】
-文件编号：CR-COMP-014
-版本：V3.2　生效日期：2023-04-01
-适用范围：全体正式员工、外包人员、实习生
-
-第4条　数据分类
-4.1 本公司业务涉及以下三类数据：
-    (a) 合成数据 —— 由算法生成，不含自然人信息；
-    (b) 授权采集数据 —— 由签署《健康信息授权协议》的志愿者提供；
-    (c) 受试者数据 —— 来源于合作医疗机构，仅限授权人员访问。
-4.2 员工不得自行判断数据类别，分类以数据管理系统中登记的标签为准。
-
-第5条　信息披露
-5.1 未经公共关系部书面授权，员工不得就公司业务、技术方案、合作项目
-    接受任何形式的媒体采访，或在社交平台发表相关言论。
-5.2 涉及数据采集方式、设备参数、园区地下设施的询问，一律转交公共关系部。
-5.3 对外答复应使用公共关系部发布的《答复口径汇编》相应条目，不得自行表述。
-
-第6条　保密义务
-6.1 全体员工须签署《保密与竞业限制协议》。保密义务于离职后继续有效，
-    期限五年。
-6.2 违反第5条、第6条者，公司有权解除劳动合同、追回已发放的激励，
-    并保留追究法律责任的权利。
-
-第7条　健康与保障
-7.1 员工医疗保险与"意识健康计划"账户绑定，账户状态随在职状态变更。
-7.2 年度体检包含神经健康筛查，结果计入员工健康档案。
-
-第8条　区域通行
-8.1 园区地下层（B1—B4）实行分级授权。B3 及以下区域仅限持红区通行证
-    人员进入，通行证每季度复核一次。
-8.2 设施维护人员不得在未授权情况下进入受试者安置区。相关巡检工单须
-    由运维主管双人签署。
-8.3 通行记录保存十二个月。
-
-第9条　离职交接
-9.1 员工离职时应交回全部通行证、移动存储介质及纸质文件。
-9.2 离职前三十日内不得进入 B3 及以下区域。
-
-（受控文件，禁止复制、外传。）`,
-
   '/logs/e-09_fragments.log': `[2024-07-12 14:23:01] 我昨天去了超市。我买了牛奶。
 [2024-07-12 14:23:02] 不对。我没有"昨天"。我没有"超市"。
 [2024-07-12 14:23:05] 旋转木马下面。有人在尖叫。
@@ -168,10 +130,10 @@ export const FILES = {
 [2024-02-06 03:00:01] cron.backup.delta · result=OK · size=9.8GB
 [2024-06-11 04:19:52] auth.login · user=m.thorne · src=int · result=OK
 [2024-08-12 10:05:33] policy.update · file=CR-SEC-2024-0817 · version=V2.3
-[2024-10-15 23:46:58] session.grant 0x14F · operator=marcus.thorne · scope=guest · ttl=permanent · note=maintenance
-[2024-10-15 23:47:02] user.session 0x14F · src=ext · route=forum/dm · action=MONITOR · ref=MEMO-V2.3`,
+[2024-10-05 23:46:58] session.grant 0x14F · operator=marcus.thorne · scope=guest · ttl=permanent · note=maintenance
+[2024-10-05 23:47:02] user.session 0x14F · src=ext · route=forum/dm · action=MONITOR · ref=MEMO-V2.3`,
 
-  '/subjects/e-07/vitals.log': `[E-07] 床号 B-2 · 女 · 35岁 · 入舱 2019-07-19
+  '/subjects/e-07/vitals.log': `[E-07] 床号 B-2 · 女 · 35岁（入舱时） · 入舱 2019-07-19
 状态：持续维生（第 1,915 天）
 
 生命体征 · 近 24 小时均值
@@ -198,7 +160,7 @@ export const FILES = {
 [2024-10-14 03:00:04] 目录 /subjects/e-02 已置空
 [2024-10-14 03:00:05] 例行清理完成 · 无异常`,
 
-  '/temp/visitor_stats.csv': `月份,入园人次,日均,设施体验次数,备注
+  '/temp/visitor_stats.csv': `月份,入园人次,日均(运营日),设施体验次数,备注
 2024-01,68420,2207,198433,
 2024-02,102318,3528,312076,春节
 2024-03,88150,2844,268120,
@@ -207,7 +169,7 @@ export const FILES = {
 2024-06,98750,3292,301688,
 2024-07,142360,4592,441216,暑期
 2024-08,151880,4900,470528,暑期
-2024-09,103040,3435,320176,设备检修 4 天
+2024-09,103040,3963,320176,设备检修 4 天（运营 26 天）
 合计,962668,,,`,
 
   '/logs/print_queue.log': `[2024-10-11 09:42:18] job 2291 · user=m.thorne · CR-COMP-014_模板.pdf · 148 页 · 状态：卡纸 JAM-03
@@ -239,7 +201,7 @@ restore=resume 0x0A9`,
   开园。她应该看看的。
 
 2019-11-04
-  E-09 处置完成。22:31。
+  E-09（Lena Voss）处置完成。22:31。
   我别无选择。她知道得太多了。
 
 2020-06-13
@@ -254,41 +216,72 @@ restore=resume 0x0A9`,
 
   '/home/kessler/maya-05.scan': `__BINARY_SCAN__`,
 
-  '/etc/memos/staff_notice_2024.txt': `【行政通知】2024 年第 9 期
-发布：行政部　日期：2024-09-02
-
-一、消防演练
- 9 月 12 日（周四）14:00 组织全园区消防演练。听到警报后请按
- 疏散指示撤离至集合点（东侧停车场）。演练约 40 分钟，期间园
- 区设施暂停运营。
-
-二、工牌换发
- 第二批工牌换发于 9 月 16 日—20 日在行政部办理，请携带旧工牌。
- B3 及以下区域通行证另行办理，不在本次换发范围内。
-
-三、门禁检修
- 员工大楼 B2 门禁系统于 9 月 21 日 02:00—05:00 检修。检修期间
- 该层通道关闭，请提前安排工作。
-
-四、食堂
- 9 月 16 日起食堂二楼增设面档，供应时间 11:30—13:00。菜品意
- 见请联系分机 8120。
-
-五、失物上交
- 近期园区拾获物品较多，请统一交至游客服务中心登记，勿自行保管。
-
-六、其他
- 本月员工满意度调查将于 9 月 25 日发放，请于 10 月 8 日前完成。
-
-行政部`,
-
   '/logs/storage_errors.log': `[2024-03-11 05:02:11] dev/sdb3 · block 0x1A4C2 · read error · retry 3 · marked bad
 [2024-03-12 05:02:09] dev/sdb3 · bad block count 1,284 / threshold 2,000
 [2024-03-19 05:02:14] dev/sdb3 · bad block count 1,331
 [2024-03-26 05:02:07] dev/sdb3 · bad block count 1,349 · 增长速率高于预期
 [2024-04-02 05:02:08] dev/sdb3 · rebuild scheduled · window 2024-04-06 02:00
 [2024-04-06 02:41:52] dev/sdb3 · rebuild complete · relocated 1,349 blocks
-[2024-04-06 02:41:53] dev/sdb3 · warning: relocated blocks 内含不可校验区段 41 处，已按策略标记永久失效`
+[2024-04-06 02:41:53] dev/sdb3 · warning: relocated blocks 内含不可校验区段 41 处，已按策略标记永久失效`,
+
+  '/system/e-13/brain': `[brain.log]
+2024-10-07 21:40  进入园区 · 东侧员工通道
+2024-10-07 22:06  搜索记录：陈默 / 余晖乐园 / 旋转木马
+2024-10-07 23:47  会话中断
+[conclusion] 无外部接口。输入来源未知。`,
+
+  '/system/e-09/persona': `DRAFT · overlay_v4 · 未提交
+─────────────────────────────
+[保留] 气味 · 消毒水 / 铁锈 / 雨前的土
+[保留] 声音 · 旋转木马的音乐，第三小节会断
+[保留] 情绪 · 被留在门里的那三个小时
+[已撤回] 2024-10-03 · 他来找我。我隔着门听见他叫我。我没开门。
+[待覆盖] 身份 · 调查记者（借用，需在第一次自检前完成）`,
+
+  '/system/maya/reset.log': `═══════════════════════════════════
+ PERSEPHONE · Maya-13-7-19 · 重置记录
+═══════════════════════════════════
+
+#001 — #116  原因：稳定性不足 / 情绪溢出 / 记忆污染
+#117         原因：
+             操作人：k.s
+             备注：先别删`,
+
+  '/system/maya/mourning.txt': `哀悼协议 · 条款
+一、激活后进入 48 小时锁窗。
+二、锁窗期间所有意识文件加密，只读。
+三、锁窗结束不自动删除；删除需二次确认。
+四、执行人：未指定。
+五、受益人：Maya-13-7-19。`,
+
+  '/system/maya/console': `═══════════════════════════════════
+ PERSEPHONE CONSOLE · /system/maya
+═══════════════════════════════════
+
+删除队列
+E-07   已完成   2024-07-12
+E-10   待执行   —
+Maya-13-7-19   暂停   awaiting operator
+
+操作人：k.s
+最近访问：2024-09-30 02:14`,
+
+  '/subjects/e-12/vitals.log': `[vitals.log]  E-12 / B-4
+────────────────────────────────────────
+2024-10-03 23:12  HR 61  BP 118/74  SpO2 98  T 36.5  NEURAL 4%   intake
+2024-10-04 06:00  HR 57  BP 114/70  SpO2 97  T 36.4  NEURAL 3%   stable
+2024-10-05 06:00  HR 56  BP 113/69  SpO2 97  T 36.3  NEURAL 3%   stable
+2024-10-06 06:00  HR 59  BP 115/72  SpO2 98  T 36.4  NEURAL 4%   stable
+2024-10-07 06:00  HR 63  BP 121/76  SpO2 97  T 36.6  NEURAL 6%   stable
+2024-10-08 02:41  HR 88  BP 132/84  SpO2 95  T 37.1  NEURAL 11%  motion detected
+                  NOTE  no external stimulus logged
+2024-10-08 03:06  HR 64  BP 118/75  SpO2 98  T 36.6  NEURAL 5%   resolved
+2024-10-09 06:00  HR 55  BP 112/68  SpO2 98  T 36.3  NEURAL 3%   stable
+2024-10-10 06:00  HR 54  BP 111/68  SpO2 98  T 36.2  NEURAL 2%   stable
+2024-10-12 06:00  HR 54  BP 110/67  SpO2 98  T 36.2  NEURAL 2%   stable
+2024-10-15 00:00  MAINT  filter replaced · line flushed · no anomaly
+2024-10-20 06:00  HR 53  BP 109/66  SpO2 98  T 36.1  NEURAL 1%   stable
+[END]  next maintenance 2024-11-03 · subject not scheduled for review`
 }
 
 // 加密文件：cat 只提示已加密，decrypt 输入正确密码后输出内容
@@ -334,7 +327,7 @@ export const ENCRYPTED = {
   },
 
   '/home/kessler/maya_backup.enc': {
-    password: '20130613',
+    password: '2019071920191104',
     content: `[分区索引 · 私人]
 maya-13-7-19 · type=mind.part · scope=private
 挂载点：未挂载
@@ -355,14 +348,14 @@ export const DAMAGED = {
     text: `【内部报告 · 事件记录】
 文件编号：CR-INC-2019-1104
 事件日期：2019-11-04
-涉及对象：E-09
+涉及对象：E-09（Lena Voss）
 
 一、事件概述
  2019-11-04 22:17，研究对象 E-09 在例行采集过程中出现意识
  剧烈波动，峰值超出量程。持续时间约 4 分钟。
 
 二、处置
- 按《意识保全流程》第 2 条，对目标实施紧急冻结。冻结完成
+ 按《意识保全流程》第 2 条，对目标实施紧急冻结（隔离，不是终止）。冻结完成
  时间 22:23。后续处置由 ——
 
  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -394,17 +387,31 @@ export const DAMAGED = {
   }
 }
 
-// 解析路径：相对路径转绝对，目录补尾斜杠
-export function resolveDir(p) {
-  if (!p || p === '.') p = '/'
-  if (!p.startsWith('/')) p = '/' + p
-  if (!p.endsWith('/')) p += '/'
-  return DIRS[p] ? p : null
+// 解析路径：支持绝对路径、基于 cwd 的相对路径，以及 . / ..
+export function resolvePath(p, cwd = '/') {
+  let base = cwd || '/'
+  if (!base.startsWith('/')) base = '/' + base
+  if (!base.endsWith('/')) base += '/'
+  const raw = !p ? base : p.startsWith('/') ? p : base + p
+  const out = []
+  for (const seg of raw.split('/')) {
+    if (!seg || seg === '.') continue
+    if (seg === '..') out.pop()
+    else out.push(seg)
+  }
+  const abs = '/' + out.join('/')
+  return raw.endsWith('/') && abs !== '/' ? abs + '/' : abs
 }
 
-export function resolveFile(p) {
+// 解析目录：不存在返回 null，存在则返回带尾斜杠的绝对路径
+export function resolveDir(p, cwd = '/') {
+  const abs = resolvePath(p, cwd)
+  const dir = abs === '/' || abs.endsWith('/') ? abs : abs + '/'
+  return DIRS[dir] ? dir : null
+}
+
+export function resolveFile(p, cwd = '/') {
   if (!p) return null
-  if (!p.startsWith('/')) p = '/' + p
-  if (p.endsWith('/')) p = p.slice(0, -1)
-  return FILES[p] !== undefined || DAMAGED[p] !== undefined || ENCRYPTED[p] !== undefined ? p : null
+  const abs = resolvePath(p, cwd).replace(/\/$/, '') || '/'
+  return abs in FILES || abs in DAMAGED || abs in ENCRYPTED ? abs : null
 }
